@@ -34,6 +34,7 @@ export declare type GenerateServiceProps = {
     namespace?: string;
     mockFolder?: string;
     templateName?: TypescriptFileType;
+    isTS: boolean;
 };
 export declare const getSchema: (schemaPath: string) => Promise<any>;
 export declare const vbenOpenAPI: ({ requestLibPath, schemaPath, mockFolder, ...rest }: GenerateServiceProps) => Promise<void>;

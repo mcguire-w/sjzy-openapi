@@ -181,7 +181,7 @@ class ServiceGenerator {
         const basePath = '';
         this.version = info.version;
         this.templateName = config.templateName;
-        console.log(config, 'config');
+        this.isTS = config.isTS;
         Object.keys(openAPIData.paths || {}).forEach((p) => {
             const pathItem = openAPIData.paths[p];
             ['get', 'put', 'post', 'delete', 'patch'].forEach((method) => {
@@ -219,28 +219,29 @@ class ServiceGenerator {
         catch (error) {
             log_1.default(`🚥 serves 生成失败: ${error}`);
         }
-        // 生成 ts 类型声明
-        this.genFileFromTemplate('typings.d.ts', 'interface', {
-            namespace: this.config.namespace,
-            // namespace: 'API',
-            list: this.getInterfaceTP(),
-            disableTypeCheck: false,
-        });
+        if (this.isTS) {
+            // 生成 ts 类型声明
+            this.genFileFromTemplate('typings.d.ts', 'interface', {
+                namespace: this.config.namespace,
+                // namespace: 'API',
+                list: this.getInterfaceTP(),
+                disableTypeCheck: false,
+            });
+        }
         // 生成 controller 文件
         const prettierError = [];
         // 生成 service 统计
         this.getServiceTP().forEach((tp) => {
             // 根据当前数据源类型选择恰当的 controller 模版
-            console.log(this.templateName);
             const template = this.templateName || 'serviceController';
-            const hasError = this.genFileFromTemplate(this.getFinalFileName(`${tp.className}.ts`), template, Object.assign({ namespace: this.config.namespace, requestImportStatement: this.config.requestImportStatement, disableTypeCheck: false }, tp));
+            const hasError = this.genFileFromTemplate(this.getFinalFileName(`${tp.className}${this.isTS ? '.ts' : '.js'}`), template, Object.assign({ namespace: this.config.namespace, requestImportStatement: this.config.requestImportStatement, disableTypeCheck: false }, tp));
             prettierError.push(hasError);
         });
         if (prettierError.includes(true)) {
             log_1.default(`🚥 格式化失败，请检查 service 文件内可能存在的语法错误`);
         }
         // 生成 index 文件
-        this.genFileFromTemplate(`index.ts`, 'serviceIndex', {
+        this.genFileFromTemplate(`index${this.isTS ? '.ts' : '.js'}`, 'serviceIndex', {
             list: this.classNameList,
             disableTypeCheck: false,
         });
@@ -259,7 +260,6 @@ class ServiceGenerator {
             !api.path.includes('${'))
                 .map((api) => {
                 const newApi = api;
-                console.log(api, 'api');
                 try {
                     const allParams = this.getParamsTP(newApi.parameters, newApi.path);
                     const body = this.getBodyTP(newApi.requestBody);
@@ -359,7 +359,7 @@ class ServiceGenerator {
                 className = this.config.hook.customClassName(tag);
             }
             return {
-                genType: 'ts',
+                genType: this.isTS ? 'ts' : 'js',
                 className,
                 instanceName: `${fileName[0].toLowerCase()}${fileName.substr(1)}`,
                 list: genParams,

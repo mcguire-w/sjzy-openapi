@@ -9,6 +9,7 @@ import { mockGenerator } from './mockGenerator';
 import Log from './log';
 
 const getImportStatement = (requestLibPath: string) => {
+  console.log(requestLibPath, 'requestLibPath');
   if (requestLibPath && requestLibPath.startsWith('import')) {
     return requestLibPath;
   }
@@ -57,6 +58,8 @@ export type GenerateServiceProps = {
   mockFolder?: string;
 
   templateName?: TypescriptFileType;
+
+  isTS: boolean;
 };
 
 const converterSwaggerToOpenApi = (swagger: any) => {
@@ -101,7 +104,7 @@ export const vbenOpenAPI = async ({
   ...rest
 }: GenerateServiceProps) => {
   const openAPI = await getOpenAPIConfig(schemaPath);
-  console.log(rest, 'openAPI');
+
   const requestImportStatement = getImportStatement(requestLibPath);
   const serviceGenerator = new ServiceGenerator(
     {

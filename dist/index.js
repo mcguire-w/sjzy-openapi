@@ -8,6 +8,7 @@ const serviceGenerator_1 = require("./serviceGenerator");
 const mockGenerator_1 = require("./mockGenerator");
 const log_1 = tslib_1.__importDefault(require("./log"));
 const getImportStatement = (requestLibPath) => {
+    console.log(requestLibPath, 'requestLibPath');
     if (requestLibPath && requestLibPath.startsWith('import')) {
         return requestLibPath;
     }
@@ -52,7 +53,6 @@ const getOpenAPIConfig = (schemaPath) => tslib_1.__awaiter(void 0, void 0, void 
 const vbenOpenAPI = (_a) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
     var { requestLibPath, schemaPath, mockFolder } = _a, rest = tslib_1.__rest(_a, ["requestLibPath", "schemaPath", "mockFolder"]);
     const openAPI = yield getOpenAPIConfig(schemaPath);
-    console.log(rest, 'openAPI');
     const requestImportStatement = getImportStatement(requestLibPath);
     const serviceGenerator = new serviceGenerator_1.ServiceGenerator(Object.assign({ namespace: 'API', requestImportStatement }, rest), openAPI);
     serviceGenerator.genFile();

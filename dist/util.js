@@ -165,7 +165,6 @@ function combineParams(key, child_key, prop, paramsObject, type) {
     return paramsObject[key];
 }
 const stripDot = (str) => {
-    console.log(str, 'str')
-    return str && str.replace(/[-_ .](\w)/g, (_all, letter) => letter.toUpperCase());
+    return str.replace(/[-_ .](\w)/g, (_all, letter) => letter.toUpperCase());
 };
 exports.stripDot = stripDot;

@@ -1,6 +1,6 @@
 import type { OpenAPIObject, SchemaObject, ReferenceObject, ParameterObject, RequestBodyObject, ResponsesObject, OperationObject } from 'openapi3-ts';
 import type { GenerateServiceProps } from './index';
-export declare type TypescriptFileType = 'interface' | 'serviceController' | 'serviceIndex' | 'financeCenter';
+export declare type TypescriptFileType = 'interface' | 'serviceController' | 'serviceIndex' | 'gotofreight_app' | 'financeCenter';
 export interface APIDataType extends OperationObject {
     path: string;
     method: string;
@@ -27,6 +27,7 @@ declare class ServiceGenerator {
     protected config: GenerateServiceProps;
     protected openAPIData: OpenAPIObject;
     protected templateName: TypescriptFileType;
+    protected isTS: boolean;
     constructor(config: GenerateServiceProps, openAPIData: OpenAPIObject);
     genFile(): void;
     concatOrNull: (...arrays: any[]) => any[];
