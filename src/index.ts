@@ -9,7 +9,6 @@ import { mockGenerator } from './mockGenerator';
 import Log from './log';
 
 const getImportStatement = (requestLibPath: string) => {
-  console.log(requestLibPath, 'requestLibPath');
   if (requestLibPath && requestLibPath.startsWith('import')) {
     return requestLibPath;
   }

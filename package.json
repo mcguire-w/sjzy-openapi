@@ -1,6 +1,6 @@
 {
   "name": "sjzy-openapi",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "使用了https://github.com/chenshuai2144/openapi2typescript  修改了一些模板使用与vben请求",
   "main": "dist/index.js",
   "files": [
@@ -15,7 +15,16 @@
     "build": "tsc",
     "start": "tsc -w"
   },
-  "author": "",
+  "author": {
+    "name": "wangminggui",
+    "email": "1611377934@qq.com",
+    "url": "https://github.com/mcguire-w/sjzy-openapi"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mcguire-w/sjzy-openapi"
+  },
+  "homepage": "https://github.com/mcguire-w/sjzy-openapi",
   "license": "MIT",
   "dependencies": {
     "@umijs/fabric": "^2.5.6",

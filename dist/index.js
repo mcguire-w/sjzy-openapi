@@ -8,7 +8,6 @@ const serviceGenerator_1 = require("./serviceGenerator");
 const mockGenerator_1 = require("./mockGenerator");
 const log_1 = tslib_1.__importDefault(require("./log"));
 const getImportStatement = (requestLibPath) => {
-    console.log(requestLibPath, 'requestLibPath');
     if (requestLibPath && requestLibPath.startsWith('import')) {
         return requestLibPath;
     }
