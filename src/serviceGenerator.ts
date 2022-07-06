@@ -466,7 +466,7 @@ class ServiceGenerator {
                   return `${finalPrefix}${formattedPath}`;
                 }
                 // prefix 变量
-                return `$\{${prefix}}${formattedPath}`;
+                return `/${prefix}${formattedPath}`;
               };
 
               return {

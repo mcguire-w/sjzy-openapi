@@ -332,7 +332,7 @@ class ServiceGenerator {
                             return `${finalPrefix}${formattedPath}`;
                         }
                         // prefix 变量
-                        return `$\{${prefix}}${formattedPath}`;
+                        return `/${prefix}${formattedPath}`;
                     };
                     return Object.assign(Object.assign({}, newApi), { functionName, path: getPrefixPath(), pathInComment: formattedPath.replace(/\*/g, '&#42;'), hasPathVariables: formattedPath.includes('{'), hasApiPrefix: !!this.config.apiPrefix, method: newApi.method, 
                         // 如果 functionName 和 summary 相同，则不显示 summary
